@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Blog Management</title>
+    <title>Simple Blog</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="/">Home</a> | 
-        <a href="/add-blog.html">Add Blog</a>
-    </nav>
-    <hr>
-
-    <!-- Main Content -->
-    <main>
+    <header class="navbar">
+        <div class="logo">SimpleBlog</div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/add-blog.html">Add Blog</a>
+        </nav>
+    </header>
+    
+    <main class="container">
         <h1>Welcome to the Blog</h1>
-        <p>All recent blog posts will be displayed here.</p>
+        <p class="subtitle">All recent blog posts will be displayed here.</p>
+        
+        <!-- Placeholder Blog Card to show off Day 3 CSS -->
+        <div class="blog-card">
+            <h2>My First Blog Post</h2>
+            <p class="blog-meta">Published on July 22, 2026</p>
+            <p>This is a placeholder for the blog content. We are setting up the UI today to ensure the typography, spacing, and card layouts look clean and professional before we connect the backend.</p>
+            <a href="#" class="btn-secondary">Read More</a>
+        </div>
     </main>
-    <hr>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Simple Blog Management System</p>
     </footer>

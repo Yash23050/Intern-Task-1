@@ -3,32 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Blog - Blog Management</title>
+    <title>Add Blog</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="/">Home</a> | 
-        <a href="/add-blog.html">Add Blog</a>
-    </nav>
-    <hr>
-
-    <!-- Main Content -->
-    <main>
-        <h1>Create a New Blog Post</h1>
-        <form>
-            <label for="title">Blog Title:</label><br>
-            <input type="text" id="title" name="title" required><br><br>
-            
-            <label for="content">Content:</label><br>
-            <textarea id="content" name="content" rows="5" required></textarea><br><br>
-            
-            <button type="submit">Publish</button>
-        </form>
+    <header class="navbar">
+        <div class="logo">SimpleBlog</div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/add-blog.html">Add Blog</a>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <div class="form-container">
+            <h1>Create a New Blog Post</h1>
+            <form class="blog-form">
+                <div class="form-group">
+                    <label for="title">Blog Title:</label>
+                    <input type="text" id="title" name="title" placeholder="Enter post title...">
+                </div>
+                <div class="form-group">
+                    <label for="content">Content:</label>
+                    <textarea id="content" name="content" rows="8" placeholder="Write your blog post here..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Publish Post</button>
+            </form>
+        </div>
     </main>
-    <hr>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Simple Blog Management System</p>
     </footer>
