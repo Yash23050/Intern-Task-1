@@ -18,7 +18,12 @@
     <main class="container">
         <div class="form-container">
             <h1>Create a New Blog Post</h1>
-            <form class="blog-form">
+            
+            <!-- New div for DOM manipulation messages -->
+            <div id="messageBox" class="message-box"></div>
+            
+            <!-- Added id="addBlogForm" so JS can find it -->
+            <form class="blog-form" id="addBlogForm">
                 <div class="form-group">
                     <label for="title">Blog Title:</label>
                     <input type="text" id="title" name="title" placeholder="Enter post title...">
@@ -35,5 +40,8 @@
     <footer>
         <p>&copy; 2026 Simple Blog Management System</p>
     </footer>
+
+    <!-- Link to our new JS file -->
+    <script src="/script.js"></script>
 </body>
 </html>

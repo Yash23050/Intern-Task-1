@@ -180,3 +180,25 @@ footer {
     border-top: 1px solid var(--border-color);
     margin-top: auto;
 }
+/* --- Validation Messages (Day 4) --- */
+.message-box {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 6px;
+    display: none; /* Hidden by default */
+    font-weight: 500;
+}
+
+.message-error {
+    display: block;
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #f87171;
+}
+
+.message-success {
+    display: block;
+    background-color: #dcfce3;
+    color: #15803d;
+    border: 1px solid #86efac;
+}
