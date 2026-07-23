@@ -4,27 +4,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const contentInput = document.getElementById("content");
     const messageBox = document.getElementById("messageBox");
 
-    // Only run this logic if the form exists on the current page
     if (form) {
-        form.addEventListener("submit", (e) => {
-            // Prevent the page from hard reloading
+        form.addEventListener("submit", async (e) => {
             e.preventDefault(); 
 
             const titleValue = titleInput.value.trim();
             const contentValue = contentInput.value.trim();
 
-            // Validation Logic
             if (titleValue === "" || contentValue === "") {
-                // Show Error using DOM Manipulation
                 messageBox.textContent = "Please fill in both the title and content fields.";
                 messageBox.className = "message-box message-error";
-            } else {
-                // Show Success using DOM Manipulation
-                messageBox.textContent = "Blog post validated successfully! (Ready for backend submission)";
-                messageBox.className = "message-box message-success";
-                
-                // Clear the form fields for the next entry
-                form.reset();
+                return; // Stop execution
+            } 
+
+            try {
+                // Send the validated data to our new Express POST route
+                const response = await fetch('/api/blogs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: titleValue, content: contentValue })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    messageBox.textContent = "Success! Blog successfully posted to the backend API.";
+                    messageBox.className = "message-box message-success";
+                    form.reset(); // Clear the inputs
+                } else {
+                    throw new Error("Server rejected the data");
+                }
+            } catch (error) {
+                messageBox.textContent = "Error connecting to the backend server.";
+                messageBox.className = "message-box message-error";
             }
         });
     }
