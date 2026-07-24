@@ -48,6 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (blogsContainer) {
         
         const fetchBlogs = async () => {
+            // DAY 10 ENHANCEMENT: Show a loading state while Fetch API connects to backend
+            blogsContainer.innerHTML = '<p style="text-align: center; font-weight: 500; color: #6b7280;">Loading blog posts...</p>';
+            
             try {
                 const response = await fetch('/api/blogs');
                 const result = await response.json();
