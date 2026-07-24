@@ -44,6 +44,31 @@ app.post('/api/blogs', (req, res) => {
     res.status(201).json({ success: true, message: 'Blog added successfully!', data: newBlog });
 });
 
+// PUT Route: Update an existing blog
+app.put('/api/blogs/:id', (req, res) => {
+    // Parse the ID from the URL parameter
+    const blogId = parseInt(req.params.id);
+    const { title, content } = req.body;
+
+    // Find the index of the blog in our array
+    const blogIndex = blogs.findIndex(b => b.id === blogId);
+
+    // If it doesn't exist, return a 404 error
+    if (blogIndex === -1) {
+        return res.status(404).json({ success: false, message: 'Blog not found' });
+    }
+
+    // Server-side validation
+    if (!title || !content) {
+        return res.status(400).json({ success: false, message: 'Title and content are required' });
+    }
+
+    // Update the blog data in the array
+    blogs[blogIndex].title = title;
+    blogs[blogIndex].content = content;
+
+    res.json({ success: true, message: 'Blog updated successfully', data: blogs[blogIndex] });
+});
 // Start the server
 app.listen(port, () => {
     console.log(`Backend server actively listening on port ${port}`);
