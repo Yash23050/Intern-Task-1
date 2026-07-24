@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
-    // VIEW & EDIT BLOGS LOGIC (Days 7 & 8)
+    // VIEW, EDIT & DELETE BLOGS LOGIC (Days 7, 8 & 9)
     // ==========================================
     const blogsContainer = document.getElementById("blogsContainer");
 
@@ -69,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const card = document.createElement("div");
                 card.className = "blog-card";
                 
-                // We inject both a view state and a hidden edit state
                 card.innerHTML = `
                     <!-- VIEW MODE -->
                     <div class="view-mode">
@@ -78,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="blog-content">${blog.content}</div>
                         <div class="card-actions">
                             <button class="btn-edit" data-id="${blog.id}">Edit Post</button>
+                            <button class="btn-delete" data-id="${blog.id}">Delete Post</button>
                         </div>
                     </div>
                     
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         };
 
-        // Event Delegation for Edit, Save, and Cancel buttons
+        // Event Delegation for Edit, Save, Cancel, and Delete buttons
         blogsContainer.addEventListener('click', async (e) => {
             const btn = e.target;
             const blogId = btn.getAttribute('data-id');
@@ -105,19 +105,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const viewMode = card.querySelector('.view-mode');
             const editMode = card.querySelector('.edit-mode');
 
-            // Handle Edit Button Click
+            // Handle Edit
             if (btn.classList.contains('btn-edit')) {
                 viewMode.style.display = 'none';
                 editMode.style.display = 'block';
             }
 
-            // Handle Cancel Button Click
+            // Handle Cancel
             if (btn.classList.contains('btn-cancel')) {
                 viewMode.style.display = 'block';
                 editMode.style.display = 'none';
             }
 
-            // Handle Save Button Click
+            // Handle Save
             if (btn.classList.contains('btn-save')) {
                 const updatedTitle = document.getElementById(`edit-title-${blogId}`).value.trim();
                 const updatedContent = document.getElementById(`edit-content-${blogId}`).value.trim();
@@ -127,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                // Send PUT request to the server
                 try {
                     const response = await fetch(`/api/blogs/${blogId}`, {
                         method: 'PUT',
@@ -135,12 +134,28 @@ document.addEventListener("DOMContentLoaded", () => {
                         body: JSON.stringify({ title: updatedTitle, content: updatedContent })
                     });
                     const result = await response.json();
-                    
-                    if (result.success) {
-                        fetchBlogs(); // Re-render the UI with the updated data
-                    }
+                    if (result.success) fetchBlogs(); 
                 } catch (error) {
                     alert("Failed to update the blog post.");
+                }
+            }
+
+            // Handle Delete (DAY 9)
+            if (btn.classList.contains('btn-delete')) {
+                // Built-in browser confirmation dialog
+                if (confirm("Are you sure you want to delete this post? This cannot be undone.")) {
+                    try {
+                        const response = await fetch(`/api/blogs/${blogId}`, {
+                            method: 'DELETE'
+                        });
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            fetchBlogs(); // Re-fetch to show the blog is gone
+                        }
+                    } catch (error) {
+                        alert("Failed to delete the blog post.");
+                    }
                 }
             }
         });

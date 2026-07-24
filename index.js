@@ -69,6 +69,27 @@ app.put('/api/blogs/:id', (req, res) => {
 
     res.json({ success: true, message: 'Blog updated successfully', data: blogs[blogIndex] });
 });
+
+// DELETE Route: Remove an existing blog
+app.delete('/api/blogs/:id', (req, res) => {
+    // Parse the ID from the URL parameter
+    const blogId = parseInt(req.params.id);
+
+    // Find the exact index of the blog in our array
+    const blogIndex = blogs.findIndex(b => b.id === blogId);
+
+    // If it doesn't exist, return a 404 error
+    if (blogIndex === -1) {
+        return res.status(404).json({ success: false, message: 'Blog not found' });
+    }
+
+    // Remove 1 element at the found index
+    blogs.splice(blogIndex, 1);
+
+    // Send success response
+    res.json({ success: true, message: 'Blog deleted successfully' });
+});
+
 // Start the server
 app.listen(port, () => {
     console.log(`Backend server actively listening on port ${port}`);
