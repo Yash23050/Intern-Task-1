@@ -8,6 +8,8 @@ A decoupled full-stack web application built as part of a 14-day internship task
 - **Integration:** Fetch API
 
 ## Deployment Note
+The frontend UI of this application is deployed via GitHub Pages and can be viewed here:
+**[View Live Frontend](https://yash23050.github.io/Intern-Task-1/)**
 The frontend of this application is deployed via GitHub Pages. Because GitHub Pages is a static hosting service, it does not run the accompanying Node.js Express backend. 
 
 To experience the full CRUD functionality, please clone this repository and run it locally:
