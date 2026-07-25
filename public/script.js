@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // ==========================================
-    // ADD BLOG LOGIC (Days 4 & 5)
+    // ADD BLOG LOGIC (Days 4 & 5) - Local Storage Update
     // ==========================================
     const form = document.getElementById("addBlogForm");
     const titleInput = document.getElementById("title");
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const messageBox = document.getElementById("messageBox");
 
     if (form) {
-        form.addEventListener("submit", async (e) => {
+        form.addEventListener("submit", (e) => {
             e.preventDefault(); 
             const titleValue = titleInput.value.trim();
             const contentValue = contentInput.value.trim();
@@ -20,23 +20,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 return; 
             } 
 
-            try {
-                const response = await fetch('/api/blogs', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ title: titleValue, content: contentValue })
-                });
+            // Local Storage: Get existing, push new, save back
+            let blogs = JSON.parse(localStorage.getItem('simple_blogs')) || [];
+            
+            const newBlog = {
+                id: Date.now().toString(),
+                title: titleValue,
+                content: contentValue,
+                date: new Date().toLocaleDateString()
+            };
 
-                const result = await response.json();
-                if (result.success) {
-                    messageBox.textContent = "Success! Blog successfully posted.";
-                    messageBox.className = "message-box message-success";
-                    form.reset(); 
-                }
-            } catch (error) {
-                messageBox.textContent = "Error connecting to the backend server.";
-                messageBox.className = "message-box message-error";
-            }
+            blogs.push(newBlog);
+            localStorage.setItem('simple_blogs', JSON.stringify(blogs));
+
+            messageBox.textContent = "Success! Blog successfully posted.";
+            messageBox.className = "message-box message-success";
+            form.reset(); 
         });
     }
 
@@ -47,17 +46,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (blogsContainer) {
         
-        const fetchBlogs = async () => {
-            // DAY 10 ENHANCEMENT: Show a loading state while Fetch API connects to backend
+        const fetchBlogs = () => {
+            // DAY 10 ENHANCEMENT: Show a loading state
             blogsContainer.innerHTML = '<p style="text-align: center; font-weight: 500; color: #6b7280;">Loading blog posts...</p>';
             
-            try {
-                const response = await fetch('/api/blogs');
-                const result = await response.json();
-                if (result.success) displayBlogs(result.data);
-            } catch (error) {
-                blogsContainer.innerHTML = '<p class="message-error">Error connecting to the server.</p>';
-            }
+            // Using a slight timeout to keep the loading animation feel before showing local storage data
+            setTimeout(() => {
+                let blogs = JSON.parse(localStorage.getItem('simple_blogs')) || [];
+
+                // Inject a default welcome blog if the array is completely empty
+                if (blogs.length === 0) {
+                    const defaultBlog = {
+                        id: Date.now().toString(),
+                        title: "Welcome to SimpleBlog!",
+                        content: "This live demo uses your browser's local storage to save posts. Add a new blog to test it out!",
+                        date: new Date().toLocaleDateString()
+                    };
+                    blogs.push(defaultBlog);
+                    localStorage.setItem('simple_blogs', JSON.stringify(blogs));
+                }
+
+                displayBlogs(blogs);
+            }, 400);
         };
 
         const displayBlogs = (blogs) => {
@@ -99,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         // Event Delegation for Edit, Save, Cancel, and Delete buttons
-        blogsContainer.addEventListener('click', async (e) => {
+        blogsContainer.addEventListener('click', (e) => {
             const btn = e.target;
             const blogId = btn.getAttribute('data-id');
             if (!blogId) return;
@@ -120,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 editMode.style.display = 'none';
             }
 
-            // Handle Save
+            // Handle Save (PUT replacement)
             if (btn.classList.contains('btn-save')) {
                 const updatedTitle = document.getElementById(`edit-title-${blogId}`).value.trim();
                 const updatedContent = document.getElementById(`edit-content-${blogId}`).value.trim();
@@ -130,35 +140,26 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                try {
-                    const response = await fetch(`/api/blogs/${blogId}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ title: updatedTitle, content: updatedContent })
-                    });
-                    const result = await response.json();
-                    if (result.success) fetchBlogs(); 
-                } catch (error) {
+                let blogs = JSON.parse(localStorage.getItem('simple_blogs')) || [];
+                const blogIndex = blogs.findIndex(b => b.id === blogId);
+                
+                if (blogIndex !== -1) {
+                    blogs[blogIndex].title = updatedTitle;
+                    blogs[blogIndex].content = updatedContent;
+                    localStorage.setItem('simple_blogs', JSON.stringify(blogs));
+                    fetchBlogs(); 
+                } else {
                     alert("Failed to update the blog post.");
                 }
             }
 
-            // Handle Delete (DAY 9)
+            // Handle Delete (DELETE replacement)
             if (btn.classList.contains('btn-delete')) {
-                // Built-in browser confirmation dialog
                 if (confirm("Are you sure you want to delete this post? This cannot be undone.")) {
-                    try {
-                        const response = await fetch(`/api/blogs/${blogId}`, {
-                            method: 'DELETE'
-                        });
-                        const result = await response.json();
-                        
-                        if (result.success) {
-                            fetchBlogs(); // Re-fetch to show the blog is gone
-                        }
-                    } catch (error) {
-                        alert("Failed to delete the blog post.");
-                    }
+                    let blogs = JSON.parse(localStorage.getItem('simple_blogs')) || [];
+                    blogs = blogs.filter(blog => blog.id !== blogId);
+                    localStorage.setItem('simple_blogs', JSON.stringify(blogs));
+                    fetchBlogs(); // Re-fetch to show the blog is gone
                 }
             }
         });

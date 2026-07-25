@@ -2,17 +2,14 @@
 
 A decoupled full-stack web application built as part of a 14-day internship task.
 
-## Architecture
-- **Frontend:** Vanilla JavaScript, HTML5, CSS3 (Static Client)
-- **Backend:** Node.js, Express.js (RESTful API)
-- **Integration:** Fetch API
+## Architecture & Deployment Note
+This repository contains a full **Node.js/Express REST API** (backend) and a **Vanilla JS/HTML/CSS** client (frontend). 
 
-## Deployment Note
-The frontend UI of this application is deployed via GitHub Pages and can be viewed here:
-**[View Live Frontend](https://yash23050.github.io/Intern-Task-1/)**
-The frontend of this application is deployed via GitHub Pages. Because GitHub Pages is a static hosting service, it does not run the accompanying Node.js Express backend. 
+To provide a seamless, interactive live demo for evaluators without causing shared-database conflicts, the live GitHub Pages deployment has been intentionally configured to use **Browser `localStorage`** for isolated state management. This ensures that any data you add or delete during testing remains completely isolated to your browser session.
 
-To experience the full CRUD functionality, please clone this repository and run it locally:
+**[View the Live Demo Here](https://yash23050.github.io/Intern-Task-1/)**
+
+To experience the true decoupled REST API functionality, clone the repository and run it locally:
 1. `npm install`
 2. `node index.js`
 3. Visit `http://localhost:3000`
