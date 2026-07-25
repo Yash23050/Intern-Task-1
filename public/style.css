@@ -16,6 +16,11 @@
     font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
+/* --- Global Smooth Scrolling (Day 11) --- */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-dark);
@@ -267,4 +272,41 @@ footer {
     border-radius: 4px;
     font-family: inherit;
     font-size: 1rem;
+}
+
+/* --- Animations & Keyframes (Day 11) --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Card Transitions & Hover Effects (Day 11) --- */
+.blog-card {
+    /* Triggers the fade-in animation when the card is added to the DOM */
+    animation: fadeIn 0.4s ease-out forwards;
+    
+    /* Prepares the card for smooth hover effects */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+    /* Lifts the card slightly and adds a deeper shadow */
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Button Transitions & Hover Effects (Day 11) --- */
+.btn-edit, .btn-save, .btn-cancel, .btn-delete, button[type="submit"] {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-edit:hover, .btn-save:hover, .btn-cancel:hover, .btn-delete:hover, button[type="submit"]:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
 }
