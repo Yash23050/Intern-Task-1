@@ -185,6 +185,232 @@ footer {
     border-top: 1px solid var(--border-color);
     margin-top: auto;
 }
+
+/* Small UI refresh */
+body {
+    background-color: #f5f6fb;
+}
+
+.navbar {
+    padding: 1rem max(1.5rem, calc((100% - 1000px) / 2));
+}
+
+.logo {
+    letter-spacing: -0.5px;
+}
+
+.navbar nav a {
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+}
+
+.navbar nav a:hover {
+    background-color: #eef2ff;
+}
+
+.container {
+    max-width: 850px;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.page-heading h1 {
+    margin-bottom: 0.4rem;
+}
+
+.eyebrow {
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    margin-bottom: 0;
+}
+
+.add-link {
+    width: auto;
+    white-space: nowrap;
+}
+
+.blog-card,
+.form-container {
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(31, 41, 55, 0.06);
+}
+
+/* Overall look for both pages */
+body {
+    background: linear-gradient(180deg, #f4f5ff 0, #fafaff 280px, #f7f8fc 100%);
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom-color: #e7e8f2;
+}
+
+.logo {
+    color: #4f46e5;
+}
+
+.navbar nav a {
+    border-radius: 8px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.navbar nav a:hover {
+    background-color: #f0efff;
+}
+
+.blog-card,
+.form-container {
+    background-color: #fff;
+    border: 1px solid #e8e9f2;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(38, 42, 75, 0.07);
+}
+
+.blog-card {
+    padding: 1.75rem;
+}
+
+.form-container {
+    padding: 2.25rem;
+}
+
+.form-container h1 {
+    margin-bottom: 1.5rem;
+}
+
+input[type="text"],
+textarea,
+.edit-input,
+.edit-textarea {
+    background-color: #fcfcff;
+    border: 1px solid #dfe1ec;
+    border-radius: 8px;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+.edit-input:focus,
+.edit-textarea:focus {
+    outline: none;
+    border-color: #7770eb;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.btn-primary,
+.btn-edit,
+.btn-save,
+.btn-cancel,
+.btn-delete {
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #5b54e8, #4941ce);
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+    box-shadow: 0 6px 14px rgba(79, 70, 229, 0.24);
+    transform: translateY(-1px);
+}
+
+.btn-edit {
+    background-color: #f2ae35;
+    color: #342307;
+}
+
+.btn-save {
+    background-color: #15966f;
+}
+
+.btn-cancel {
+    background-color: #72788a;
+}
+
+.btn-delete {
+    background-color: #dc5260;
+}
+
+.btn-edit:hover,
+.btn-save:hover,
+.btn-cancel:hover,
+.btn-delete:hover {
+    filter: brightness(0.94);
+}
+
+.message-box {
+    border-radius: 8px;
+}
+
+footer {
+    background-color: rgba(255, 255, 255, 0.65);
+    border-top-color: #e7e8f2;
+}
+
+@media (max-width: 600px) {
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    .blog-card {
+        padding: 1.25rem;
+    }
+}
+
+.blog-card h2 {
+    color: #252b45;
+}
+
+.btn-edit,
+.btn-save,
+.btn-cancel,
+.btn-delete {
+    border-radius: 6px;
+    padding: 0.55rem 0.9rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin-top: 2rem;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .add-link {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Keep the refreshed card style after the older task styles above */
+.blog-card,
+.form-container {
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(31, 41, 55, 0.06);
+}
 /* --- Validation Messages (Day 4) --- */
 .message-box {
     padding: 1rem;
@@ -343,4 +569,85 @@ footer {
     .blog-card {
         padding: 15px;
     }
+}
+
+/* Final visual styles */
+body {
+    background: linear-gradient(180deg, #f4f5ff 0, #fafaff 280px, #f7f8fc 100%);
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom-color: #e7e8f2;
+}
+
+.blog-card,
+.form-container {
+    background-color: #fff;
+    border: 1px solid #e8e9f2;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(38, 42, 75, 0.07);
+}
+
+.blog-card {
+    padding: 1.75rem;
+}
+
+.form-container {
+    padding: 2.25rem;
+}
+
+.form-container h1 {
+    margin-bottom: 1.5rem;
+}
+
+input[type="text"],
+textarea,
+.edit-input,
+.edit-textarea {
+    background-color: #fcfcff;
+    border: 1px solid #dfe1ec;
+    border-radius: 8px;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+.edit-input:focus,
+.edit-textarea:focus {
+    outline: none;
+    border-color: #7770eb;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #5b54e8, #4941ce);
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+    box-shadow: 0 6px 14px rgba(79, 70, 229, 0.24);
+    transform: translateY(-1px);
+}
+
+.btn-edit,
+.btn-save,
+.btn-cancel,
+.btn-delete {
+    border-radius: 8px;
+}
+
+.btn-edit { background-color: #f2ae35; color: #342307; }
+.btn-save { background-color: #15966f; }
+.btn-cancel { background-color: #72788a; }
+.btn-delete { background-color: #dc5260; }
+
+footer {
+    background-color: rgba(255, 255, 255, 0.65);
+    border-top-color: #e7e8f2;
+}
+
+@media (max-width: 600px) {
+    .form-container { padding: 1.5rem; }
+    .blog-card { padding: 1.25rem; }
 }
